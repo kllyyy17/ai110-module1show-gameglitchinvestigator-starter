@@ -49,6 +49,8 @@ I decided a bug was really fixed only when a test that targeted it passed, inste
 
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 
+I'd tell my friend that Streamlit re-runs the entire script from top to bottom every time you interact with the page, so every button click runs the whole file again and normal variables reset each time. To remember things across those reruns — like the secret number, score, and game status — Streamlit gives you `st.session_state`, a dictionary that survives between runs. This project made it click for me: the "can't restart" bug happened because "New Game" reset the attempts and secret but forgot to reset `status` to "playing," so after the rerun the game still thought it was over and stopped.
+
 ---
 
 ## 5. Looking ahead: your developer habits
@@ -57,3 +59,5 @@ I decided a bug was really fixed only when a test that targeted it passed, inste
   - This could be a testing habit, a prompting strategy, or a way you used Git.
 - What is one thing you would do differently next time you work with AI on a coding task?
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+One habit I want to keep is writing a small pytest test for each bug and only calling it "fixed" once that test passes — it turned debugging from guessing into proof. One thing I'd do differently is verify the AI's fixes more carefully instead of assuming a change is complete just because it runs; the string-vs-number bug stayed hidden inside a `try/except` even after the code "looked" fixed. This project changed how I think about AI-generated code: it can look polished and production-ready while still hiding real bugs, so I now treat AI output as a first draft to review and test rather than a finished answer.
